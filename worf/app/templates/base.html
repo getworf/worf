@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en" class="h-full bg-white">
+	<head>
+		<meta charset="utf-8" />
+		<title>Worf{% if subtitle is defined %} - {{subtitle}}{% endif %}</title>
+		<link rel="preload" href="/app/static/css/main.css" as="style" />
+		<link rel="stylesheet" href="/app/static/css/main.css" />
+	</head>
+   <body class="{% block bodyclass %}h-full{% endblock %}">
+      {% block main %}
+      <div>
+        <div class="relative z-50 lg:hidden" role="dialog" aria-modal="true">
+         {% include "_menu.html" %}
+          <main class="py-10">
+            <div class="px-4 sm:px-6 lg:px-8">
+              {% block content %}{% endblock %}
+            </div>
+          </main>
+
+        </div>
+      </div>
+      {% endblock %}
+
+	</body>
+</html>
