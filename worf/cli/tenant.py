@@ -24,3 +24,13 @@ def create_tenant(name):
             return
         tenant = Tenant(name=name)
         session.add(tenant)
+
+@tenant.command("list")
+def list_tenants():
+    """
+    List all tenants
+    """
+    with settings.session() as session:
+        tenants = session.query(Tenant).all()
+        for tenant in tenants:
+            print(tenant.name)

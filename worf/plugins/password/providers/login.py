@@ -33,6 +33,7 @@ class PasswordLogin(PasswordSignup):
             return {"error": {"message": "login failed"}, "status": 404}
 
         for provider in providers:
+            print("checking...")
             if self.check_password(user_data["password"], provider):
                 return {"user": provider.user}
 

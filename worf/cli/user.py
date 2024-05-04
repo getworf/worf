@@ -13,17 +13,21 @@ def user():
 
 
 @user.command("create")
+@click.argument("tenant_name")
 @click.argument("email")
 @click.option("--superuser", is_flag=True)
-def create_user(email, superuser):
+def create_user(tenant_name, email, superuser):
     """
     Create a user
     """
     with settings.session() as session:
+        tenant = Tenant.get_by_name(session, tenant_name)
+        if not tenant:
+            click.echo("Invalid tenant")
         if User.get_by_email(session, tenant, email):
             click.echo("User already exists.")
             return
-        user = User(email=email, superuser=superuser)
+        user = User(tenant=tenant, email=email, superuser=superuser)
         session.add(user)
 
 
